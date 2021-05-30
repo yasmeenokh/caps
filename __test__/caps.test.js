@@ -15,6 +15,9 @@ describe('CAPS TEST', ()=>{
   beforeEach(()=>{
     consoleSpy = jest.spyOn(console, 'log').mockImplementation();
   });
+  afterAll(() => {
+    consoleSpy.mockRestore();
+  });
   it('should call the pickup event', ()=>{
     vendor.sendFakeOrder(order);
     expect(consoleSpy).toHaveBeenCalled();
