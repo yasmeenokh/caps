@@ -22,7 +22,7 @@ Links :
 [PullRequests](https://github.com/yasmeenokh/caps/pulls)
 
 # Results 
-![results](images/lab11.png)
+![results](images/labcaps.png)
 
 # UML 
 ![uml](images/lab11.png)
