@@ -4,19 +4,20 @@ const events = require('../events');
 
 
 function pickup(payload){
-  setInterval(()=>{
-    console.log('EVENT ', payload);
-    console.log(`DRIVER: picked up ${payload.payload.orderId}`);
+  console.log('EVENT ', payload);
+  console.log(`DRIVER: picked up ${payload.payload.orderId}`);
+  setTimeout(()=>{
     events.emit('in-transit', payload);
-    console.log('in-transit ', payload);
-  }, 1000);
+  },1000);
 }
 
 function delivered(payload){
-  setInterval(()=>{
+  payload.event = 'in-transit';
+  console.log('in-transit', payload);
+  setTimeout(()=>{
     console.log(`DRIVER: delivered up ${payload.payload.orderId}`);
-    console.log('DELIVERED ', payload);
     events.emit('delivered', payload);
+    console.log('DELIVERED ', payload);
   }, 3000);
 }
 
