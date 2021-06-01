@@ -8,30 +8,45 @@ describe('CAPS TEST', ()=>{
   let consoleSpy;
   let order = {
     store : 'JASMINES',
+    orderId : faker.datatype.uuid(),
     randomName : faker.name.findName(),
     address : faker.address.city(),
-    orderId : faker.datatype.uuid(),
+  };
+  let payload = {
+    event: 'pickup',
+    time: new Date().toISOString(),
+    payload: order,
   };
   beforeEach(()=>{
+    jest.useFakeTimers();
     consoleSpy = jest.spyOn(console, 'log').mockImplementation();
   });
   afterAll(() => {
     consoleSpy.mockRestore();
   });
-  it('should call the pickup event', ()=>{
-    vendor.sendFakeOrder(order);
+  it('should call the pickup event', async ()=>{
+    vendor.sendFakeOrder(payload);
     expect(consoleSpy).toHaveBeenCalled();
   });
-  it('should console when the driver pickup the order', ()=>{
-    driver.pickup(order);
-    expect(consoleSpy).toHaveBeenCalled();
+  it('should console when the driver pickup the order', async ()=>{
+    driver.pickup(payload);
+    setTimeout(()=>{
+      expect(consoleSpy).toHaveBeenCalled();
+    }, 1000);
+
   }),
-  it('should console when the driver delivers the order', ()=>{
-    driver.delivered(order);
-    expect(consoleSpy).toHaveBeenCalled();
+  it('should console when the driver delivers the order', async ()=>{
+    driver.delivered(payload);
+    setTimeout(()=>{
+      expect(consoleSpy).toHaveBeenCalled();
+    }, 3000);
+
   });
-  it('should console a thank you when the driver delivers', ()=>{
-    vendor.thanks(order);
-    expect(consoleSpy).toHaveBeenCalled();
+  it('should console a thank you when the driver delivers',async ()=>{
+    vendor.thanks(payload);
+    setTimeout(()=>{
+      expect(consoleSpy).toHaveBeenCalled();
+    }, 3000);
+
   });
 });
